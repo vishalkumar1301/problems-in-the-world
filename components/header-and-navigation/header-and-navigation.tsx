@@ -17,12 +17,8 @@ import { MenuIcon, Globe } from "lucide-react" // Added Globe icon
 
 const navigationItems = [
     { name: "Home", href: "/" },
-    { name: "Dashboard", href: "/dashboard" },
-    { name: "Products", href: "/products" },
-    { name: "Customers", href: "/customers" },
-    { name: "Orders", href: "/orders" },
-    { name: "Analytics", href: "/analytics" },
-    { name: "Settings", href: "/settings" },
+    { name: "Problem Categories", href: "/problem-category" },
+    { name: "Add Problem", href: "/add-problem" },
     // Add more navigation items as needed
 ]
 
