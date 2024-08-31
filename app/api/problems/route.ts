@@ -25,8 +25,6 @@ export async function POST(request: Request) {
   }
 }
 
-// Similarly, you would implement PUT and DELETE methods using updateProblem and deleteProblem functions
-
 export async function PUT(request: Request) {
   try {
     const { id, ...problemData } = await request.json();
