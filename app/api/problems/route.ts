@@ -1,7 +1,8 @@
 // File: app/api/problems/route.ts
 
 import { NextResponse } from 'next/server';
-import { getProblems, addProblem, updateProblem, deleteProblem, Problem } from '@/lib/db/problems';
+import { Problem } from '@/lib/interfaces/Problem';
+import { getProblems, addProblem, updateProblem, deleteProblem } from '@/lib/db/problems';
 
 export async function GET() {
   try {

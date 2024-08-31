@@ -7,8 +7,8 @@ import {
   addLocation,
   updateLocation,
   deleteLocation,
-  Location,
 } from "@/lib/db/locations";
+import { Location } from "@/lib/interfaces/Location";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

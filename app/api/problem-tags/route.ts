@@ -9,8 +9,8 @@ import {
   deleteProblemTag,
   deleteAllProblemTagsByProblemId,
   deleteAllProblemTagsByTagId,
-  ProblemTag
 } from '@/lib/db/problem-tags';
+import { ProblemTag } from '@/lib/interfaces/ProblemTag';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

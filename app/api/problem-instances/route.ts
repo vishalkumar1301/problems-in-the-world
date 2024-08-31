@@ -1,8 +1,8 @@
 // File: app/api/problem-instances/route.ts
 
 import { NextResponse } from 'next/server';
-import { getProblemInstances, getProblemInstanceById, addProblemInstance, updateProblemInstance, deleteProblemInstance, ProblemInstance } from '@/lib/db/problem-instances';
-
+import { getProblemInstances, getProblemInstanceById, addProblemInstance, updateProblemInstance, deleteProblemInstance } from '@/lib/db/problem-instances';
+import { ProblemInstance } from '@/lib/interfaces/ProblemInstance';
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get('id');

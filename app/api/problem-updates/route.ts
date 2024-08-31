@@ -7,8 +7,8 @@ import {
   addProblemUpdate,
   updateProblemUpdate,
   deleteProblemUpdate,
-  ProblemUpdate,
 } from "@/lib/db/problem-updates";
+import { ProblemUpdate } from "@/lib/interfaces/ProblemUpdate";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

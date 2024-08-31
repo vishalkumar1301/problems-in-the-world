@@ -2,15 +2,7 @@
 
 import { pool } from "./db-config";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
-
-export interface User {
-  user_id?: number;
-  username: string;
-  email: string;
-  password_hash: string;
-  is_admin: boolean;
-  created_at?: string;
-}
+import { User } from "../interfaces/User";
 
 export async function getUsers(): Promise<User[]> {
   const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM users");
