@@ -1,6 +1,8 @@
+import { LocationType } from '../enums/LocationType';
+
 export interface Location {
   location_id?: number;
   name: string;
-  type: 'CITY' | 'STATE' | 'COUNTRY' | 'REGION';
+  type: LocationType;
   parent_location_id?: number;
 }

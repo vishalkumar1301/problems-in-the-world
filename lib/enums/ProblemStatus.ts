@@ -1,0 +1,6 @@
+export enum ProblemStatus {
+  ONGOING = 'ONGOING',
+  IMPROVING = 'IMPROVING',
+  WORSENING = 'WORSENING',
+  RESOLVED = 'RESOLVED'
+}

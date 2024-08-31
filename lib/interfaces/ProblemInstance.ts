@@ -1,8 +1,10 @@
+import { ProblemStatus } from '../enums/ProblemStatus';
+
 export interface ProblemInstance {
   instance_id?: number;
   problem_id: number;
   location_id: number;
-  status: 'ONGOING' | 'IMPROVING' | 'WORSENING' | 'RESOLVED';
+  status: ProblemStatus;
   severity: number;
   reported_by?: number;
   created_at?: string;
