@@ -2,7 +2,13 @@
 
 import { pool } from "./db-config";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
-import { ProblemTag } from "../interfaces/ProblemTag";
+import { ProblemTag } from "@/lib/interfaces/ProblemTag";
+
+
+
+
+
+
 
 export async function getProblemTags(): Promise<ProblemTag[]> {
   const [rows] = await pool.query<RowDataPacket[]>(
@@ -10,6 +16,14 @@ export async function getProblemTags(): Promise<ProblemTag[]> {
   );
   return rows as ProblemTag[];
 }
+
+
+
+
+
+
+
+
 
 export async function getProblemTagsByProblemId(
   problemId: number
@@ -21,6 +35,14 @@ export async function getProblemTagsByProblemId(
   return rows as ProblemTag[];
 }
 
+
+
+
+
+
+
+
+
 export async function getProblemTagsByTagId(
   tagId: number
 ): Promise<ProblemTag[]> {
@@ -31,6 +53,14 @@ export async function getProblemTagsByTagId(
   return rows as ProblemTag[];
 }
 
+
+
+
+
+
+
+
+
 export async function addProblemTag(problemTag: ProblemTag): Promise<boolean> {
   const { problem_id, tag_id } = problemTag;
   const [result] = await pool.query<ResultSetHeader>(
@@ -39,6 +69,14 @@ export async function addProblemTag(problemTag: ProblemTag): Promise<boolean> {
   );
   return result.affectedRows > 0;
 }
+
+
+
+
+
+
+
+
 
 export async function deleteProblemTag(
   problemId: number,
@@ -51,6 +89,13 @@ export async function deleteProblemTag(
   return result.affectedRows > 0;
 }
 
+
+
+
+
+
+
+
 export async function deleteAllProblemTagsByProblemId(
   problemId: number
 ): Promise<boolean> {
@@ -60,6 +105,13 @@ export async function deleteAllProblemTagsByProblemId(
   );
   return result.affectedRows > 0;
 }
+
+
+
+
+
+
+
 
 export async function deleteAllProblemTagsByTagId(
   tagId: number

@@ -2,12 +2,27 @@
 
 import { pool } from "./db-config";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
-import { Tag } from "../interfaces/Tag";
+import { Tag } from "@/lib/interfaces/Tag";
+
+
+
+
+
+
+
 
 export async function getTags(): Promise<Tag[]> {
   const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM tags");
   return rows as Tag[];
 }
+
+
+
+
+
+
+
+
 
 export async function getTagById(id: number): Promise<Tag | null> {
   const [rows] = await pool.query<RowDataPacket[]>(
@@ -17,6 +32,12 @@ export async function getTagById(id: number): Promise<Tag | null> {
   return rows[0] as Tag | null;
 }
 
+
+
+
+
+
+
 export async function addTag(tag: Omit<Tag, "tag_id">): Promise<number> {
   const { name } = tag;
   const [result] = await pool.query<ResultSetHeader>(
@@ -25,6 +46,14 @@ export async function addTag(tag: Omit<Tag, "tag_id">): Promise<number> {
   );
   return result.insertId;
 }
+
+
+
+
+
+
+
+
 
 export async function updateTag(
   id: number,
@@ -37,6 +66,13 @@ export async function updateTag(
   );
   return result.affectedRows > 0;
 }
+
+
+
+
+
+
+
 
 export async function deleteTag(id: number): Promise<boolean> {
   const [result] = await pool.query<ResultSetHeader>(

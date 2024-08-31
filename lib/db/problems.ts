@@ -1,13 +1,27 @@
 // File: lib/db/problems.ts
 
 import { pool } from "./db-config";
+import { Problem } from "@/lib/interfaces/Problem";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
-import { Problem } from "../interfaces/Problem";
+
+
+
+
+
+
 
 export async function getProblems(): Promise<Problem[]> {
   const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM problems");
   return rows as Problem[];
 }
+
+
+
+
+
+
+
+
 
 export async function getProblemById(id: number): Promise<Problem | null> {
   const [rows] = await pool.query<RowDataPacket[]>(
@@ -16,6 +30,12 @@ export async function getProblemById(id: number): Promise<Problem | null> {
   );
   return rows[0] as Problem | null;
 }
+
+
+
+
+
+
 
 export async function addProblem(
   problem: Omit<Problem, "problem_id" | "created_at" | "updated_at">
@@ -28,6 +48,14 @@ export async function addProblem(
   return result.insertId;
 }
 
+
+
+
+
+
+
+
+
 export async function updateProblem(
   id: number,
   problem: Partial<Problem>
@@ -39,6 +67,15 @@ export async function updateProblem(
   );
   return result.affectedRows > 0;
 }
+
+
+
+
+
+
+
+
+
 
 export async function deleteProblem(id: number): Promise<boolean> {
   const [result] = await pool.query<ResultSetHeader>(

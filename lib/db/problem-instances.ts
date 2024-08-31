@@ -2,7 +2,15 @@
 
 import { pool } from "./db-config";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
-import { ProblemInstance } from "../interfaces/ProblemInstance";
+import { ProblemInstance } from "@/lib/interfaces/ProblemInstance";
+
+
+
+
+
+
+
+
 
 export async function getProblemInstances(): Promise<ProblemInstance[]> {
   const [rows] = await pool.query<RowDataPacket[]>(
@@ -10,6 +18,13 @@ export async function getProblemInstances(): Promise<ProblemInstance[]> {
   );
   return rows as ProblemInstance[];
 }
+
+
+
+
+
+
+
 
 export async function getProblemInstanceById(
   id: number
@@ -20,6 +35,14 @@ export async function getProblemInstanceById(
   );
   return rows[0] as ProblemInstance | null;
 }
+
+
+
+
+
+
+
+
 
 export async function addProblemInstance(
   instance: Omit<ProblemInstance, "instance_id" | "created_at" | "updated_at">
@@ -32,6 +55,14 @@ export async function addProblemInstance(
   return result.insertId;
 }
 
+
+
+
+
+
+
+
+
 export async function updateProblemInstance(
   id: number,
   instance: Partial<ProblemInstance>
@@ -43,6 +74,14 @@ export async function updateProblemInstance(
   );
   return result.affectedRows > 0;
 }
+
+
+
+
+
+
+
+
 
 export async function deleteProblemInstance(id: number): Promise<boolean> {
   const [result] = await pool.query<ResultSetHeader>(

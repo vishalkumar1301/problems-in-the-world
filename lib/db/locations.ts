@@ -1,13 +1,27 @@
 // File: lib/db/locations.ts
 
 import { pool } from "./db-config";
+import { Location } from "@/lib/interfaces/Location";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
-import { Location } from "../interfaces/Location";
+
+
+
+
+
+
 
 export async function getLocations(): Promise<Location[]> {
   const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM locations");
   return rows as Location[];
 }
+
+
+
+
+
+
+
+
 
 export async function getLocationById(id: number): Promise<Location | null> {
   const [rows] = await pool.query<RowDataPacket[]>(
@@ -16,6 +30,14 @@ export async function getLocationById(id: number): Promise<Location | null> {
   );
   return rows[0] as Location | null;
 }
+
+
+
+
+
+
+
+
 
 export async function addLocation(
   location: Omit<Location, "location_id">
@@ -28,6 +50,15 @@ export async function addLocation(
   return result.insertId;
 }
 
+
+
+
+
+
+
+
+
+
 export async function updateLocation(
   id: number,
   location: Partial<Location>
@@ -39,6 +70,13 @@ export async function updateLocation(
   );
   return result.affectedRows > 0;
 }
+
+
+
+
+
+
+
 
 export async function deleteLocation(id: number): Promise<boolean> {
   const [result] = await pool.query<ResultSetHeader>(

@@ -1,13 +1,26 @@
 // File: lib/db/users.ts
 
 import { pool } from "./db-config";
+import { User } from "@/lib/interfaces/User";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
-import { User } from "../interfaces/User";
+
+
+
+
+
+
+
 
 export async function getUsers(): Promise<User[]> {
   const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM users");
   return rows as User[];
 }
+
+
+
+
+
+
 
 export async function getUserById(id: number): Promise<User | null> {
   const [rows] = await pool.query<RowDataPacket[]>(
@@ -16,6 +29,13 @@ export async function getUserById(id: number): Promise<User | null> {
   );
   return rows[0] as User | null;
 }
+
+
+
+
+
+
+
 
 export async function addUser(
   user: Omit<User, "user_id" | "created_at">
@@ -28,6 +48,13 @@ export async function addUser(
   return result.insertId;
 }
 
+
+
+
+
+
+
+
 export async function updateUser(
   id: number,
   user: Partial<User>
@@ -39,6 +66,13 @@ export async function updateUser(
   );
   return result.affectedRows > 0;
 }
+
+
+
+
+
+
+
 
 export async function deleteUser(id: number): Promise<boolean> {
   const [result] = await pool.query<ResultSetHeader>(
