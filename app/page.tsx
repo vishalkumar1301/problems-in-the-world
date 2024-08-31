@@ -1,10 +1,10 @@
 import Image from "next/image";
-import AddProblemForm from "@/components/add-problem-form";
+import AddProblemCategoryForm from "@/components/add-problem-category-form";
 
 export default function Home() {
 	return (
-		<div>
-			<AddProblemForm />
+		<div className="flex flex-col items-center justify-center h-screen">
+			<AddProblemCategoryForm />
 		</div>
 	);
 }
