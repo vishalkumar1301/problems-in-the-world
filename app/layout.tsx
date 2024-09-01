@@ -19,7 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <HeaderAndNavigation />
-        {children}
+        <div className="mt-4 p-4">
+          {children}
+        </div>
       </body>
     </html>
   );

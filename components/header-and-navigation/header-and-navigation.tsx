@@ -19,7 +19,6 @@ const navigationItems = [
     { name: "Home", href: "/" },
     { name: "Problem Categories", href: "/problem-category" },
     { name: "Add Problem", href: "/add-problem" },
-    // Add more navigation items as needed
 ]
 
 export default function Navigation() {
@@ -29,7 +28,7 @@ export default function Navigation() {
         <nav className="border-b">
             <div className="flex h-16 items-center px-4">
                 <Link href="/" className="mr-6 flex items-center space-x-2">
-                    <Globe className="h-6 w-6 text-primary" /> {/* Added Earth logo */}
+                    <Globe className="h-6 w-6 text-primary" />
                     <span className="text-xl font-bold">ProblemsInTheWorld.com</span>
                 </Link>
                 <div className="hidden md:flex md:space-x-4">
@@ -50,7 +49,6 @@ export default function Navigation() {
                 </div>
                 <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
                     <div className="w-full flex-1 md:w-auto md:flex-none">
-                        {/* Add search functionality here if needed */}
                     </div>
                     <nav className="flex items-center space-x-2">
                         <DropdownMenu>

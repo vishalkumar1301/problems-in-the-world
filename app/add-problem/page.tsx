@@ -1,10 +1,12 @@
-import Image from "next/image";
 import AddProblemForm from "@/components/add-problem-form";
 
 export default function AddProblem() {
     return (
         <div className="flex flex-col items-center justify-center mt-10">
-            <AddProblemForm />
+            <div className="w-full md:w-[600px]">
+                <h1 className="text-3xl font-bold my-4">Add Problem</h1>
+                <AddProblemForm />
+            </div>
         </div>
     );
 }

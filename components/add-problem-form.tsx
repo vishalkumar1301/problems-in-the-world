@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Textarea } from "@/components/ui/textarea";
-import { Select } from "@/components/ui/select";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { ProblemCategory } from "@/lib/interfaces/ProblemCategories";
 
 const formSchema = z.object({
@@ -123,13 +123,17 @@ export default function AddProblemForm() {
 			</div>
 			<div className="space-y-2">
 				<Label htmlFor="category_id">Category</Label>
-				<Select id="category_id" {...register("category_id")}>
-					<option value="">Select a category</option>
-					{categories.map((category) => (
-						<option key={category.category_id} value={category.category_id}>
-							{category.name}
-						</option>
-					))}
+				<Select onValueChange={(value) => register("category_id").onChange({ target: { value } })}>
+					<SelectTrigger id="category_id">
+						<SelectValue placeholder="Select a category" />
+					</SelectTrigger>
+					<SelectContent>
+						{categories.map((category) => (
+							<SelectItem key={category.category_id} value={category.category_id?.toString() ?? ''}>
+								{category.name}
+							</SelectItem>
+						))}
+					</SelectContent>
 				</Select>
 				{errors.category_id && (
 					<p className="text-sm text-red-500">{errors.category_id.message}</p>
