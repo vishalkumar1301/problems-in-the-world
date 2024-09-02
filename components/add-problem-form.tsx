@@ -1,37 +1,39 @@
 'use client';
 
-import * as z from "zod";
+
+
+
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Controller } from "react-hook-form";
 import { ProblemCategory } from "@/lib/interfaces/ProblemCategories";
+import { ProblemFormSchema, ProblemFormValues } from "@/lib/formSchemas/ProblemFormSchema";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
-const formSchema = z.object({
-	name: z.string().min(1, "Name is required"),
-	description: z.string().min(1, "Description is required"),
-	category_id: z.string().min(1, "Category is required"),
-});
 
-type ProblemFormValues = z.infer<typeof formSchema>;
+
+
+
+
 
 export default function AddProblemForm() {
-	const [isLoading, setIsLoading] = useState(false);
-	const [categories, setCategories] = useState<ProblemCategory[]>([]);
-	const { toast } = useToast();
 
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm<ProblemFormValues>({
-		resolver: zodResolver(formSchema),
+
+
+
+	const { toast } = useToast();
+	const [isLoading, setIsLoading] = useState(false);
+
+
+
+
+	const { control, reset, register, handleSubmit, formState: { errors } } = useForm<ProblemFormValues>({
+		resolver: zodResolver(ProblemFormSchema),
 		defaultValues: {
 			name: "",
 			description: "",
@@ -39,9 +41,18 @@ export default function AddProblemForm() {
 		},
 	});
 
+
+
+
+
+
+	const [categories, setCategories] = useState<ProblemCategory[]>([]);
+	
+	
 	useEffect(() => {
 		fetchCategories();
 	}, []);
+
 
 	const fetchCategories = async () => {
 		try {
@@ -54,6 +65,14 @@ export default function AddProblemForm() {
 			console.error('Error fetching categories:', error);
 		}
 	};
+
+
+
+
+
+
+
+
 
 	async function onSubmit(values: ProblemFormValues) {
 		setIsLoading(true);
@@ -78,7 +97,7 @@ export default function AddProblemForm() {
 				title: "Success",
 				description: "Problem has been created.",
 			});
-			reset(); // Reset form after successful submission
+			reset();
 		} catch (error) {
 			console.error('Error adding problem:', error);
 			toast({
@@ -91,60 +110,111 @@ export default function AddProblemForm() {
 		}
 	}
 
+
+
+
+
+
+
+
+
+	
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
 			<div className="space-y-2">
+
+
+
 				<Label htmlFor="name">Name</Label>
-				<Input
-					id="name"
-					placeholder="Enter problem name"
-					{...register("name")}
-				/>
-				{errors.name && (
-					<p className="text-sm text-red-500">{errors.name.message}</p>
-				)}
+				
+				<Input id="name" placeholder="Enter problem name" {...register("name")} />
+				{errors.name && ( <p className="text-sm text-red-500">{errors.name.message}</p> )}
+				
 				<p className="text-sm text-muted-foreground">
 					The name of the problem.
 				</p>
+
+
+
+
 			</div>
 			<div className="space-y-2">
+				
+				
+				
+				
+				
 				<Label htmlFor="description">Description</Label>
-				<Textarea
-					id="description"
-					placeholder="Enter problem description"
-					{...register("description")}
-				/>
+				
+				<Textarea id="description" placeholder="Enter problem description" {...register("description")} />
 				{errors.description && (
 					<p className="text-sm text-red-500">{errors.description.message}</p>
 				)}
+
 				<p className="text-sm text-muted-foreground">
 					A detailed description of the problem.
 				</p>
+
+
+
+
+
+				
 			</div>
 			<div className="space-y-2">
+				
+				
+				
+				
+				
+				
 				<Label htmlFor="category_id">Category</Label>
-				<Select onValueChange={(value) => register("category_id").onChange({ target: { value } })}>
-					<SelectTrigger id="category_id">
-						<SelectValue placeholder="Select a category" />
-					</SelectTrigger>
-					<SelectContent>
-						{categories.map((category) => (
-							<SelectItem key={category.category_id} value={category.category_id?.toString() ?? ''}>
-								{category.name}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
+				
+				<Controller name="category_id" control={control} render={({ field }) => (
+					<Select onValueChange={field.onChange} value={field.value}>
+						<SelectTrigger id="category_id">
+							<SelectValue placeholder="Select a category" />
+						</SelectTrigger>
+						<SelectContent>
+							{categories.map((category) => (
+								<SelectItem key={category.category_id} value={category.category_id?.toString() ?? ''}>
+									{category.name}
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
+				)} />
 				{errors.category_id && (
 					<p className="text-sm text-red-500">{errors.category_id.message}</p>
 				)}
+
 				<p className="text-sm text-muted-foreground">
 					The category this problem belongs to.
 				</p>
+
+
+
+
+
+
+
 			</div>
+
+
+
+
+
+
 			<Button type="submit" disabled={isLoading}>
 				{isLoading ? "Creating..." : "Create Problem"}
 			</Button>
+
+
+
+
+
+
+			
 		</form>
 	);
 }

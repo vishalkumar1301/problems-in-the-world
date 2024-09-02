@@ -3,7 +3,7 @@ import AddProblemCategoryForm from "@/components/add-problem-category-form";
 
 export default function Home() {
 	return (
-		<div className="flex flex-col items-center justify-center h-screen">
+		<div className="flex flex-col items-center justify-center mt-10">
 			Welcome to the home page
 		</div>
 	);
