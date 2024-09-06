@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function SignupPage() {
   return (
-    <Card className="w-[350px]">
+    <Card className="w-full">
       <SignupForm />
       <CardFooter>
         <Button variant="link" asChild className="w-full">

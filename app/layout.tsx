@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import HeaderAndNavigation from "@/components/header-and-navigation/header-and-navigation";
+import LoggedOutHeader from "@/components/Headers/LoggedOutHeader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <HeaderAndNavigation />
+        <LoggedOutHeader />
         <div className="mt-4 p-4">
           {children}
         </div>
