@@ -1,18 +1,11 @@
 "use client"
 
-import dynamic from 'next/dynamic'
+import OpenSourceInteractiveMap from '@/components/Maps/interactive-world-map';
 
-const MapComponent = dynamic(() => import('@/components/MapComponent'), {
-  ssr: false,
-  loading: () => <p>Loading map...</p>
-})
-
-const HomePage = () => {
+export default function Home() {
   return (
-    <div className="container mx-auto mt-16">
-      <MapComponent />
-    </div>
-  )
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <OpenSourceInteractiveMap />
+    </main>
+  );
 }
-
-export default HomePage
