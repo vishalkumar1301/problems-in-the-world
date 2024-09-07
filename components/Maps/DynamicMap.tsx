@@ -38,24 +38,22 @@ const DynamicMap: React.FC<DynamicMapProps> = ({
   };
 
   return (
-    <div style={{ height: '400px', width: '100%' }}>
-      <MapContainer
-        center={center}
-        zoom={zoom}
-        style={{ height: '100%', width: '100%' }}
-        ref={mapRef}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        <MapUpdater center={center} zoom={zoom} />
-        {markerPosition && <Marker position={markerPosition} />}
-        {boundingBox && (
-          <Rectangle bounds={boundingBox} pathOptions={rectangleStyle} />
-        )}
-      </MapContainer>
-    </div>
+    <MapContainer
+      center={center}
+      zoom={zoom}
+      style={{ height: '100%', width: '100%' }}
+      ref={mapRef}
+    >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      />
+      <MapUpdater center={center} zoom={zoom} />
+      {markerPosition && <Marker position={markerPosition} />}
+      {boundingBox && (
+        <Rectangle bounds={boundingBox} pathOptions={rectangleStyle} />
+      )}
+    </MapContainer>
   );
 };
 

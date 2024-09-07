@@ -12,7 +12,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4 flex gap-2">
+    <form onSubmit={handleSubmit} className="flex w-full max-w-sm items-center space-x-2">
       <Input
         type="text"
         value={address}

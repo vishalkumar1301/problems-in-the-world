@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import LoggedOutHeader from "@/components/Headers/LoggedOutHeader";
+import ClientWrapper from "@/components/ClientWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,10 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <LoggedOutHeader />
-        <div className="mt-4 p-4">
-          {children}
-        </div>
+        <ClientWrapper>
+          <LoggedOutHeader />
+          <div className="h-screen pt-16">
+            {children}
+          </div>
+        </ClientWrapper>
       </body>
     </html>
   );
