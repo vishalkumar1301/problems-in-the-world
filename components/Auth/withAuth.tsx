@@ -1,25 +1,17 @@
-"use client"
-
-import { useEffect } from 'react';
+import { useKeycloak } from '@/lib/useKeycloak';
 import { useRouter } from 'next/navigation';
-import { useAppSelector } from '@/store/hooks';
 
 export function withAuth<P extends object>(WrappedComponent: React.ComponentType<P>) {
   return function WithAuth(props: P) {
+    const { keycloak, authenticated } = useKeycloak();
     const router = useRouter();
-    const { user, isLoading } = useAppSelector((state) => state.auth);
 
-    useEffect(() => {
-      if (!isLoading && !user) {
-        router.push('/auth/login');
-      }
-    }, [user, isLoading, router]);
-
-    if (isLoading) {
+    if (!keycloak) {
       return <div>Loading...</div>;
     }
 
-    if (!user) {
+    if (!authenticated) {
+      keycloak.login();
       return null;
     }
 

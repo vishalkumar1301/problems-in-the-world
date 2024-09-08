@@ -1,26 +1,21 @@
 "use client"
 
 import * as React from "react"
-import { useAppSelector } from '@/store/hooks';
 import Logo from "@/components/logo"
-import { navigationItems } from "@/lib/constants/navigation"
-import HeaderNavLinks from "@/components/Headers/HeaderNavLinks"
-import LeftNavigation from "@/components/Navigations/LeftNavigation"
-import ProfileDropdownMenu from "@/components/Profile/ProfileDropdownMenu"
+import { SearchForm } from '@/components/Maps/SearchForm';
+import { useMapContext } from "@/contexts/MapContext";
 
 export default function LoggedInHeader() {
-	const { user } = useAppSelector((state) => state.auth);
+	const mapContext = useMapContext();
 
 	return (
-		<nav className="border-b bg-background">
+		<nav className="fixed top-0 left-0 right-0 z-50 bg-white bg-opacity-20 backdrop-filter backdrop-blur-sm pointer-events-auto">
 			<div className="flex h-16 items-center px-4">
 				<Logo />
-				<HeaderNavLinks navigationItems={navigationItems} />
-				<div className="flex-grow" />
-				<div className="flex items-center justify-between space-x-2 md:justify-end">
-					{user && <ProfileDropdownMenu user={user} />}
+				<div className="flex-grow mx-4">
+					{mapContext && <SearchForm onSubmit={mapContext.handleAddressSubmit} />}
 				</div>
-				<LeftNavigation navigationItems={navigationItems} />
+				{/* Add any other logged-in specific elements here */}
 			</div>
 		</nav>
 	)
