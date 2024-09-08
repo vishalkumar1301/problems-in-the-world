@@ -1,8 +1,10 @@
 // File: lib/db/users.ts
 
+import bcrypt from 'bcrypt';
 import { pool } from "./db-config";
 import { User } from "@/lib/interfaces/User";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
+import { SignupCredentials } from "@/lib/interfaces/SignupCredentials";
 
 
 
@@ -38,12 +40,13 @@ export async function getUserById(id: number): Promise<User | null> {
 
 
 export async function addUser(
-  user: Omit<User, "user_id" | "created_at">
+  user: Omit<SignupCredentials, "confirmPassword">
 ): Promise<number> {
-  const { username, email, password_hash, is_admin } = user;
+  const { username, email, password } = user;
+  const password_hash = await bcrypt.hash(password, 10);
   const [result] = await pool.query<ResultSetHeader>(
-    "INSERT INTO users (username, email, password_hash, is_admin) VALUES (?, ?, ?, ?)",
-    [username, email, password_hash, is_admin]
+    "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)",
+    [username, email, password_hash]
   );
   return result.insertId;
 }
@@ -80,4 +83,32 @@ export async function deleteUser(id: number): Promise<boolean> {
     [id]
   );
   return result.affectedRows > 0;
+}
+
+
+
+
+
+
+
+export async function getUserByUsername(username: string): Promise<User | null> {
+  const [rows] = await pool.query<RowDataPacket[]>(
+    "SELECT * FROM users WHERE username = ?",
+    [username]
+  );
+  return rows[0] as User | null;
+}
+
+
+
+
+
+
+
+export async function getUserByEmail(email: string): Promise<User | null> {
+  const [rows] = await pool.query<RowDataPacket[]>(
+    "SELECT * FROM users WHERE email = ?",
+    [email]
+  );
+  return rows[0] as User | null;
 }

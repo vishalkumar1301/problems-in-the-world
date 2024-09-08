@@ -1,21 +1,16 @@
 import React from 'react';
-
-interface PageLayoutProps {
-  title: string;
-  children: React.ReactNode;
-}
-
-function PageLayout({ title, children }: PageLayoutProps) {
-  return (
-    <div className="flex flex-col items-center justify-center mt-10">
-      <div className="w-full md:w-[600px]">
-        <h1 className="text-3xl font-bold my-4">{title}</h1>
-        {children}
-      </div>
-    </div>
-  );
-}
+import LoggedInHeader from '@/components/Headers/LoggedInHeader';
+import { MapProvider } from '@/contexts/MapContext';
 
 export default function LoggedInLayout({ children }: { children: React.ReactNode }) {
-  return <PageLayout title="">{children}</PageLayout>;
+  return (
+    <MapProvider>
+      <LoggedInHeader />
+      <div className="flex flex-col items-center justify-center mt-10">
+        <div className="w-full md:w-[600px]">
+          {children}
+        </div>
+      </div>
+    </MapProvider>
+  );
 }

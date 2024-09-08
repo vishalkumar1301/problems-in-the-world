@@ -1,15 +1,18 @@
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
-import { INavigationItem } from "@/lib/types/INavigationItem"
-import { INavigationProps } from "@/lib/types/INavigationProps"
+import { NavigationItem } from "@/lib/constants/navigation"
 
-export default function HeaderNavLinks({ navigationItems }: INavigationProps) {
+interface HeaderNavLinksProps {
+  navigationItems: NavigationItem[];
+}
+
+export default function HeaderNavLinks({ navigationItems }: HeaderNavLinksProps) {
     const pathname = usePathname()
 
     return (
         <div className="hidden md:flex md:space-x-4">
-            {navigationItems.map((item: INavigationItem) => (
+            {navigationItems.map((item) => (
                 <Link key={item.href} href={item.href}
                     className={cn(
                         "flex items-center text-sm font-medium transition-colors hover:text-primary",

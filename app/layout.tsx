@@ -1,10 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import LoggedOutHeader from "@/components/Headers/LoggedOutHeader";
-import ClientWrapper from "@/components/ClientWrapper";
-import { Provider } from 'react-redux';
-import { store } from '@/store';
+import { AuthProvider } from '@/components/Auth/AuthProvider';
+import { MapProvider } from '@/contexts/MapContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,14 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider store={store}>
-          <ClientWrapper>
-            <LoggedOutHeader />
-            <div className="h-screen pt-16">
-              {children}
-            </div>
-          </ClientWrapper>
-        </Provider>
+        <AuthProvider>
+          <MapProvider>
+            {children}
+          </MapProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,27 +1,9 @@
+import { User } from '@/lib/interfaces/User';
+import { authService } from '@/services/AuthService';
+import { AuthState } from '@/lib/interfaces/AuthState';
+import { LoginCredentials } from '@/lib/interfaces/LoginCredentials';
+import { SignupCredentials } from '@/lib/interfaces/SignupCredentials';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-
-interface AuthState {
-  user: User | null;
-  isLoading: boolean;
-  error: string | null;
-}
-
-interface User {
-  id: number;
-  username: string;
-  email: string;
-}
-
-interface LoginCredentials {
-  username: string;
-  password: string;
-}
-
-interface SignupCredentials {
-  username: string;
-  email: string;
-  password: string;
-}
 
 const initialState: AuthState = {
   user: null,
@@ -29,36 +11,24 @@ const initialState: AuthState = {
   error: null,
 };
 
-export const login = createAsyncThunk(
+export const login = createAsyncThunk<User, LoginCredentials>(
   'auth/login',
-  async (credentials: LoginCredentials, { rejectWithValue }) => {
+  async (credentials, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(credentials),
-      });
-      if (!response.ok) throw new Error('Login failed');
-      return await response.json();
+      return await authService.login(credentials);
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error instanceof Error ? error.message : 'An unknown error occurred');
     }
   }
 );
 
-export const signup = createAsyncThunk(
+export const signup = createAsyncThunk<User, SignupCredentials>(
   'auth/signup',
-  async (credentials: SignupCredentials, { rejectWithValue }) => {
+  async (credentials, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(credentials),
-      });
-      if (!response.ok) throw new Error('Signup failed');
-      return await response.json();
+      return await authService.signup(credentials);
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error instanceof Error ? error.message : 'An unknown error occurred');
     }
   }
 );
