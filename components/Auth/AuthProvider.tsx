@@ -15,6 +15,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (initialized) {
       setIsLoading(false);
     }
+
+    // Check Keycloak server availability
+    if (keycloak?.authServerUrl) {
+      fetch(keycloak.authServerUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          console.log('Keycloak server is accessible');
+        })
+        .catch(e => {
+          console.error('Keycloak server is not accessible:', e);
+        });
+    }
+
   }, [initialized, authenticated, keycloak, error]);
 
   if (isLoading) {
@@ -22,10 +37,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   if (error) {
+    console.error('AuthProvider: Keycloak initialization error:', error);
     return <div>Error initializing Keycloak: {error}</div>;
   }
 
   if (!keycloak) {
+    console.warn('AuthProvider: Keycloak not initialized');
     return <div>Keycloak not initialized. Please check your configuration.</div>;
   }
 
